@@ -8,12 +8,17 @@ Var
 
 Inicio
    escreval("=== SISTEMA DE COMPRAS ===")
-   escreva("Digite seu saldo inicial: ")
-   leia(saldo_atual)
+   repita
+      escreva("Digite seu saldo inicial: ")
+      leia(saldo_atual)
+      se (saldo_atual < 0) entao
+         escreval("O saldo inicial nao pode ser negativo.")
+      fimse
+   ate (saldo_atual >= 0)
 
    opcao <- 0
 
-   // Repete o menu enquanto o usuário não digitar 3
+   // Repete o menu enquanto o usuario nao digitar 3
    enquanto (opcao <> 3) faca
       escreval(" ")
       escreval("--- LOJA DO JOAO VICTOR ---")
@@ -29,20 +34,27 @@ Inicio
             escreva("Digite o valor da compra: ")
             leia(valor_compra)
 
-            // Estrutura condicional para verificar o saldo
-            se (valor_compra <= saldo_atual) entao
-               saldo_atual <- saldo_atual - valor_compra
-               escreval(">>> Compra APROVADA com sucesso!")
-               escreval(">>> Seu novo saldo e: ", saldo_atual)
+            se (valor_compra <= 0) entao
+               escreval("Informe um valor de compra positivo.")
             senao
-               escreval(">>> Compra NEGADA! Saldo insuficiente.")
+               se (valor_compra <= saldo_atual) entao
+                  saldo_atual <- saldo_atual - valor_compra
+                  escreval(">>> Compra APROVADA com sucesso!")
+                  escreval(">>> Seu novo saldo e: ", saldo_atual)
+               senao
+                  escreval(">>> Compra NEGADA! Saldo insuficiente.")
+               fimse
             fimse
 
          caso 2
             escreva("Qual valor deseja depositar? ")
             leia(valor_deposito)
-            saldo_atual <- saldo_atual + valor_deposito
-            escreval(">>> Deposito realizado! Novo saldo: ", saldo_atual)
+            se (valor_deposito > 0) entao
+               saldo_atual <- saldo_atual + valor_deposito
+               escreval(">>> Deposito realizado! Novo saldo: ", saldo_atual)
+            senao
+               escreval("Informe um valor de deposito positivo.")
+            fimse
 
          caso 3
             escreval("Encerrando o sistema... Volte sempre!")
